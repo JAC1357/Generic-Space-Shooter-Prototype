@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private float _speed = 3.5f;
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private float _laserOffset = .8f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(laser, transform.position, Quaternion.identity);
+            Instantiate(laser, transform.position  + new Vector3(0, _laserOffset, 0), Quaternion.identity);
         }
     }
 }

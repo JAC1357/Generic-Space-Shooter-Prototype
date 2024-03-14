@@ -8,6 +8,8 @@ public class Laser : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 8f;
+    [SerializeField]
+    private float _offset = .8f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +22,9 @@ public class Laser : MonoBehaviour
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
 
-        if (transform.position.y > 8)
+        if (transform.position.y > 8f)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
