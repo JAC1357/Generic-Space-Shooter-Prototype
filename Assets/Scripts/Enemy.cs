@@ -31,10 +31,17 @@ public class Enemy : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            //do damage to player here
+            Player player = other.transform.GetComponent<Player>();
+
+            if (player != null)
+            {
+                player.Damage();
+            }
+
             Destroy(this.gameObject);
         }
-        else if (other.tag.Equals("Laser"))
+        
+        if (other.tag.Equals("Laser"))
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
