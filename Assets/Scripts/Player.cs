@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private float _laserOffset = .8f;
     [SerializeField]
     private float _fireRate = .5f;
+    [SerializeField]
     private float _canFire = -1f;
 
     // Start is called before the first frame update
