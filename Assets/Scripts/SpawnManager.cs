@@ -17,6 +17,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyObject;
     [SerializeField]
     private GameObject _enemyContainer; 
+    private bool _stopSpawning = false;
 
 
     // Start is called before the first frame update
@@ -35,13 +36,18 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnRoutine(GameObject gameObject)
     {
-        while (true)
+        while (_stopSpawning == false)
         {
             GameObject newEnemy = Instantiate(gameObject, EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             Debug.Log("Created new enemy object.");
             yield return _spawnTime;
         }
+    }
+
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 
     public Vector3 EnemySpawnVector(float width, float ySpawn)
