@@ -34,11 +34,10 @@ public class Powerup : MonoBehaviour
 
             if (player != null)
             {
-                player.Damage();
+                player.TripleShotPickUp();
             }
-
-            player.ItemPickup(this.gameObject);
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
+        
     }
 }

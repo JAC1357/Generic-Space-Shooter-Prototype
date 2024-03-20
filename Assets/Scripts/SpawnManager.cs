@@ -12,19 +12,28 @@ public class SpawnManager : MonoBehaviour
     private float _xWidth = 8f;
     [SerializeField]
     private float _ySpawnPoint = 7f;
-    private IEnumerator _spawnRoutine;
+    private IEnumerator _spawnEnemyRoutine;
     [SerializeField]
     private GameObject _enemyObject;
     [SerializeField]
     private GameObject _enemyContainer; 
-    private bool _stopSpawning = false;
+    private bool _stopEnemySpawning = false;
+    private bool _stopPowerupSpawning = false;
+    [SerializeField]
+    private GameObject _powerupContainer;
+    private IEnumerator _spawnPowerUpRoutine;
+    [SerializeField]
+    private GameObject _powerupObject;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _spawnRoutine = SpawnRoutine(_enemyObject); 
-        StartCoroutine(_spawnRoutine);
+        _spawnEnemyRoutine = SpawnEnemyRoutine(_enemyObject);
+        _spawnPowerUpRoutine = SpawnPowerUpRoutine(_powerupObject);
+
+        StartCoroutine(_spawnEnemyRoutine);
+        StartCoroutine(_spawnPowerUpRoutine);
         //StopCoroutine(spawnRoutine);
     }
 
@@ -34,9 +43,9 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    IEnumerator SpawnRoutine(GameObject gameObject)
+    IEnumerator SpawnEnemyRoutine(GameObject gameObject)
     {
-        while (_stopSpawning == false)
+        while (_stopEnemySpawning == false)
         {
             GameObject newEnemy = Instantiate(gameObject, EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
@@ -45,9 +54,21 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    IEnumerator SpawnPowerUpRoutine(GameObject gameObject)
+    {
+        while (_stopPowerupSpawning == false)
+        {
+            WaitForSeconds respawnTime = new WaitForSeconds(Random.Range(3, 8));
+            GameObject newPowerup= Instantiate(gameObject, EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
+            newPowerup.transform.parent = _powerupContainer.transform;
+            Debug.Log("Created new powerup object.");
+            yield return respawnTime;
+        }
+    }
+
     public void OnPlayerDeath()
     {
-        _stopSpawning = true;
+        _stopEnemySpawning = true;
     }
 
     public Vector3 EnemySpawnVector(float width, float ySpawn)

@@ -21,12 +21,18 @@ public class Player : MonoBehaviour
     private bool _tripleShotActive = false;
     [SerializeField]
     private GameObject _tripleShotPrefab;
-    
+    [SerializeField]
+    private WaitForSeconds _tripleshotCoolDowRate = new WaitForSeconds(5);
+    private bool _tripleShotCanFire;
+    private IEnumerator _stopTripleShot;
+
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Vector3.zero;
+
+        _stopTripleShot = TripleshotPowerDownRoutine();
 
         _spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
@@ -102,5 +108,22 @@ public class Player : MonoBehaviour
                 break;
         }
     
+    }
+
+    public void TripleShotPickUp()
+    {
+        _tripleShotActive = true;
+        Debug.Log("_tripleShotActive = true");
+        //Only Works once: collct powerup for true, timer runs out for false, collect powerupagain for true, time is supposed to run out but stays true
+        //StartCoroutine(_stopTripleShot);
+        //this works as expected
+        StartCoroutine(TripleshotPowerDownRoutine());
+    }
+
+    private IEnumerator TripleshotPowerDownRoutine()
+    {
+        yield return _tripleshotCoolDowRate;
+        _tripleShotActive = false;
+        Debug.Log("_tripleShotActive = false");
     }
 }
