@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
+using UnityEditor.UI;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Powerup : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 4f;
-    [SerializeField]
-    private float _xWidth = 8f;
+    private float _speed = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +22,13 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < -6f)
         {
-            float randomX = Random.Range(_xWidth * -1, _xWidth);
-            transform.position = new Vector3(randomX, 7, transform.position.z);
+            Destroy(this.gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.CompareTag("Player"))
         {
             Player player = other.transform.GetComponent<Player>();
 
@@ -38,14 +37,8 @@ public class Enemy : MonoBehaviour
                 player.Damage();
             }
 
-            Destroy(this.gameObject);
+            player.ItemPickup(this.gameObject);
         }
-        
-        //if (other.tag.Equals("Laser"))
-        if(other.CompareTag("Laser"))
-        {
-            Destroy(other.gameObject);
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }
