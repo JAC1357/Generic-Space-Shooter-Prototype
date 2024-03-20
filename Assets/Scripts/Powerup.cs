@@ -47,7 +47,7 @@ public class Powerup : MonoBehaviour
                         //Debug.Log("Power up speed collected");
                         break;
                     case PowerupTypes.Types.PowerupType.Shield:
-                        //player.TripleShotPickUp();
+                        player.ShieldPickUp();
                         break;
                     default:
                         Debug.Log("No power up given.");

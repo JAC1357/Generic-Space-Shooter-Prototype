@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +30,10 @@ public class Player : MonoBehaviour
     private WaitForSeconds _speedCoolDowRate = new WaitForSeconds(5);
     [SerializeField]
     private bool _speedActive = false;
-
+    [SerializeField]
+    private bool _hasShield = false;
+    [SerializeField]
+    private GameObject _shieldvisualizer;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +99,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_hasShield == true)
+        {
+            _hasShield = false;
+            _shieldvisualizer.SetActive(false);
+            return;
+        }
+
         _lives -= 1;
 
         if (_lives < 1)
@@ -145,5 +156,11 @@ public class Player : MonoBehaviour
         yield return _speedCoolDowRate;
         _speedActive = false;
         _speed = 5f;
+    }
+
+    public void ShieldPickUp()
+    {
+        _hasShield = true;
+        _shieldvisualizer.SetActive(true);
     }
 }
