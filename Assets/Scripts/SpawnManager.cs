@@ -16,25 +16,27 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyObject;
     [SerializeField]
-    private GameObject _enemyContainer; 
+    private GameObject _enemyContainer;
     private bool _stopEnemySpawning = false;
     private bool _stopPowerupSpawning = false;
     [SerializeField]
     private GameObject _powerupContainer;
-    private IEnumerator _spawnPowerUpRoutine;
     [SerializeField]
     private GameObject _powerupObject;
+    [SerializeField]
+    private GameObject[] _powerupPrefabs;
+    private IEnumerator _spawnPowerupRoutine;
 
 
     // Start is called before the first frame update
     void Start()
     {
         _spawnEnemyRoutine = SpawnEnemyRoutine(_enemyObject);
-        _spawnPowerUpRoutine = SpawnPowerUpRoutine(_powerupObject);
-
         StartCoroutine(_spawnEnemyRoutine);
-        StartCoroutine(_spawnPowerUpRoutine);
         //StopCoroutine(spawnRoutine);
+
+        _spawnPowerupRoutine = SpawnPowerUpRoutine(_powerupPrefabs);
+        StartCoroutine(_spawnPowerupRoutine);
     }
 
     // Update is called once per frame
@@ -43,24 +45,24 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    IEnumerator SpawnEnemyRoutine(GameObject gameObject)
+    IEnumerator SpawnEnemyRoutine(GameObject enemy)
     {
         while (_stopEnemySpawning == false)
         {
-            GameObject newEnemy = Instantiate(gameObject, EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
+
+            GameObject newEnemy = Instantiate(enemy, EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             Debug.Log("Created new enemy object.");
             yield return _spawnTime;
         }
     }
 
-    IEnumerator SpawnPowerUpRoutine(GameObject gameObject)
+    IEnumerator SpawnPowerUpRoutine(GameObject[] powerup)
     {
         while (_stopPowerupSpawning == false)
         {
             WaitForSeconds respawnTime = new WaitForSeconds(Random.Range(3, 8));
-            GameObject newPowerup= Instantiate(gameObject, EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
-            newPowerup.transform.parent = _powerupContainer.transform;
+            GameObject newPowerup= Instantiate(powerup[Random.Range(0, powerup.Length)], EnemySpawnVector(_xWidth, _ySpawnPoint), Quaternion.identity);
             Debug.Log("Created new powerup object.");
             yield return respawnTime;
         }

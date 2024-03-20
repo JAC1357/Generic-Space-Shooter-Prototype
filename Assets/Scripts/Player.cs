@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     private WaitForSeconds _tripleshotCoolDowRate = new WaitForSeconds(5);
     private bool _tripleShotCanFire;
     private IEnumerator _stopTripleShot;
+    [SerializeField]
+    private WaitForSeconds _speedCoolDowRate = new WaitForSeconds(5);
+    [SerializeField]
+    private bool _speedActive = false;
 
 
     // Start is called before the first frame update
@@ -44,6 +48,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         CalculateMovement();
 
         ShootLaser(_laserPrefab, _tripleShotPrefab);
@@ -125,5 +130,20 @@ public class Player : MonoBehaviour
         yield return _tripleshotCoolDowRate;
         _tripleShotActive = false;
         Debug.Log("_tripleShotActive = false");
+    }
+
+    public void SpeedPickUp()
+    {
+        _speedActive = true;
+        _speed = 8f;
+        Debug.Log("_speedActive = true");
+        StartCoroutine(SpeedPowerDownRoutine());
+    }
+
+    private IEnumerator SpeedPowerDownRoutine()
+    {
+        yield return _speedCoolDowRate;
+        _speedActive = false;
+        _speed = 5f;
     }
 }

@@ -374,6 +374,7 @@ MonoBehaviour:
   _tripleShotActive: 0
   _tripleShotPrefab: {fileID: 3588172364253664742, guid: d753ef876355a614b8046c42bf328bd9,
     type: 3}
+  _speedActive: 0
 --- !u!212 &966057823
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -505,6 +506,9 @@ MonoBehaviour:
   _powerupContainer: {fileID: 1373067283}
   _powerupObject: {fileID: 1310129462048858175, guid: a0f447315f9d9c1489d92d18d4ba66c1,
     type: 3}
+  _powerupPrefabs:
+  - {fileID: 1310129462048858175, guid: a0f447315f9d9c1489d92d18d4ba66c1, type: 3}
+  - {fileID: 8554378704190965037, guid: 69e15490ebcf5994f98b5aff4ed27343, type: 3}
 --- !u!4 &1571567433
 Transform:
   m_ObjectHideFlags: 0
