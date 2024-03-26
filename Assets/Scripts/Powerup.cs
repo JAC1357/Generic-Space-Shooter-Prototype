@@ -11,6 +11,7 @@ public class Powerup : MonoBehaviour
     private float _speed = 3f;
     [SerializeField]
     private PowerupTypes.Types.PowerupType _powerupID;
+    //[SerializeField] private AudioSource _powerUpPickAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,8 @@ public class Powerup : MonoBehaviour
 
             if (player != null)
             {
-                switch(_powerupID)
+                //_powerUpPickAudioSource.Play();
+                switch (_powerupID)
                 {
                     case PowerupTypes.Types.PowerupType.TripleShot:
                         player.TripleShotPickUp();

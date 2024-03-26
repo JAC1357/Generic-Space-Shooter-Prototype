@@ -7,6 +7,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField] float _rotaionSpeed = 9f;
     private Animator _anim;
     private SpawnManager _spawnManager;
+    [SerializeField] private AudioSource _explosionAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class Asteroid : MonoBehaviour
             Destroy(other.gameObject);
             _anim.SetTrigger("OnExplosion");
             _spawnManager.StartSpawning();
+            _explosionAudioSource.Play();
             Destroy(this.gameObject, 2.8f);
         }
     }

@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private float _xWidth = 8f;
     private Player _player;
     private Animator _anim;
+    [SerializeField] private AudioSource _explosionSource;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +21,17 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("The player is empty.");
         }
+
         _anim = this.gameObject.GetComponent<Animator>();
         if (_anim == null)
         {
             Debug.LogError("The animator is empty.");
+        }
+
+        _explosionSource = GetComponent<AudioSource>();
+        if (_explosionSource == null)
+        {
+            Debug.LogError("The _explosionSource is empty.");
         }
     }
 
@@ -53,6 +61,7 @@ public class Enemy : MonoBehaviour
             }
             _anim.SetTrigger("OnEnemyDeath");
             _speed = 0;
+            _explosionSource.Play();
             Destroy(this.gameObject, 2.8f);
         }
         
@@ -60,8 +69,8 @@ public class Enemy : MonoBehaviour
         if(other.CompareTag("Laser"))
         {
             Destroy(other.gameObject);
-            //Player player = other.transform.GetComponent<Player>();
 
+            _explosionSource.Play();
             _anim.SetTrigger("OnEnemyDeath");
             _speed = 0;
             if (_player != null)

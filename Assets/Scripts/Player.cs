@@ -42,6 +42,9 @@ public class Player : MonoBehaviour
     private int _score;
     private UIManager _uiManager;
     [SerializeField] private GameObject[] _playerDamage;
+    [SerializeField] private AudioSource _laserAudioSource;
+    [SerializeField] private AudioSource _explosionSource;
+    [SerializeField] private AudioSource _powerUpPickAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -113,6 +116,8 @@ public class Player : MonoBehaviour
                 Instantiate(laser, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
                 //Instantiate(laser, transform.position, Quaternion.identity);
             }
+
+            _laserAudioSource.Play();
         }
     }
 
@@ -130,14 +135,17 @@ public class Player : MonoBehaviour
 
         if (_lives == 2)
         {
+            _explosionSource.Play();
             _playerDamage[0].SetActive(true);
         }
         else if (_lives == 1)
         {
+            _explosionSource.Play();
             _playerDamage[1].SetActive(true);
         }
         if (_lives < 1)
         {
+            _explosionSource.Play();
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
@@ -156,6 +164,7 @@ public class Player : MonoBehaviour
 
     public void TripleShotPickUp()
     {
+        _powerUpPickAudioSource.Play();
         _tripleShotActive = true;
         Debug.Log("_tripleShotActive = true");
         //Only Works once: collct powerup for true, timer runs out for false, collect powerupagain for true, time is supposed to run out but stays true
@@ -173,6 +182,7 @@ public class Player : MonoBehaviour
 
     public void SpeedPickUp()
     {
+        _powerUpPickAudioSource.Play();
         _speedActive = true;
         _speed = 8f;
         Debug.Log("_speedActive = true");
@@ -188,6 +198,7 @@ public class Player : MonoBehaviour
 
     public void ShieldPickUp()
     {
+        _powerUpPickAudioSource.Play();
         _hasShield = true;
         _shieldvisualizer.SetActive(true);
     }
