@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     private float _canFire = -1f;
     [SerializeField]
     private int _lives = 3;
+    public int Lives
+    {
+        get { return _lives; }
+    }
     private SpawnManager _spawnManager;
     [SerializeField]
     private bool _tripleShotActive = false;
