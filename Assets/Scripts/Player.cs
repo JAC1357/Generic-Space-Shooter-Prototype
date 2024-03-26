@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _score;
     private UIManager _uiManager;
+    [SerializeField] private GameObject[] _playerDamage;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,11 @@ public class Player : MonoBehaviour
         if (_uiManager == null)
         {
             Debug.LogError("The uiManger is empty.");
+        }
+
+        foreach (GameObject damage in _playerDamage)
+        {
+            damage.SetActive(false);
         }
     }
 
@@ -122,6 +128,14 @@ public class Player : MonoBehaviour
         _lives -= 1;
         _uiManager.UpdateLives(_lives);
 
+        if (_lives == 2)
+        {
+            _playerDamage[0].SetActive(true);
+        }
+        else if (_lives == 1)
+        {
+            _playerDamage[1].SetActive(true);
+        }
         if (_lives < 1)
         {
             _spawnManager.OnPlayerDeath();
