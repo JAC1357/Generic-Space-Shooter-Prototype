@@ -5,41 +5,27 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 5f;
-    [SerializeField]
-    private GameObject _laserPrefab;
-    [SerializeField]
-    private float _laserOffset = 1.05f;
-    [SerializeField]
-    private float _fireRate = .5f;
-    [SerializeField]
-    private float _canFire = -1f;
-    [SerializeField]
-    private int _lives = 3;
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private GameObject _laserPrefab;
+    [SerializeField] private float _laserOffset = 1.05f;
+    [SerializeField] private float _fireRate = .5f;
+    [SerializeField] private float _canFire = -1f;
+    [SerializeField] private int _lives = 3;
     public int Lives
     {
         get { return _lives; }
     }
     private SpawnManager _spawnManager;
-    [SerializeField]
-    private bool _tripleShotActive = false;
-    [SerializeField]
-    private GameObject _tripleShotPrefab;
-    [SerializeField]
-    private WaitForSeconds _tripleshotCoolDowRate = new WaitForSeconds(5);
+    [SerializeField] private bool _tripleShotActive = false;
+    [SerializeField] private GameObject _tripleShotPrefab;
+    [SerializeField] private WaitForSeconds _tripleshotCoolDowRate = new WaitForSeconds(5);
     private bool _tripleShotCanFire;
     private IEnumerator _stopTripleShot;
-    [SerializeField]
-    private WaitForSeconds _speedCoolDowRate = new WaitForSeconds(5);
-    [SerializeField]
-    private bool _speedActive = false;
-    [SerializeField]
-    private bool _hasShield = false;
-    [SerializeField]
-    private GameObject _shieldvisualizer;
-    [SerializeField]
-    private int _score;
+    [SerializeField] private WaitForSeconds _speedCoolDowRate = new WaitForSeconds(5);
+    [SerializeField] private bool _speedActive = false;
+    [SerializeField] private bool _hasShield = false;
+    [SerializeField] private GameObject _shieldvisualizer;
+    [SerializeField] private int _score;
     private UIManager _uiManager;
     [SerializeField] private GameObject[] _playerDamage;
     [SerializeField] private AudioSource _laserAudioSource;

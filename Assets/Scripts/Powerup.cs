@@ -7,17 +7,9 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 3f;
-    [SerializeField]
-    private PowerupTypes.Types.PowerupType _powerupID;
+    [SerializeField] private float _speed = 3f;
+    [SerializeField] private PowerupTypes.Types.PowerupType _powerupID;
     //[SerializeField] private AudioSource _powerUpPickAudioSource;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

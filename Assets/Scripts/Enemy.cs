@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 4f;
-    [SerializeField]
-    private float _xWidth = 8f;
+    [SerializeField] private float _speed = 4f;
+    [SerializeField] private float _xWidth = 8f;
     private Player _player;
     private Animator _anim;
     [SerializeField] private AudioSource _explosionSource;
@@ -45,8 +43,6 @@ public class Enemy : MonoBehaviour
             float randomX = Random.Range(_xWidth * -1, _xWidth);
             transform.position = new Vector3(randomX, 7, transform.position.z);
         }
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)

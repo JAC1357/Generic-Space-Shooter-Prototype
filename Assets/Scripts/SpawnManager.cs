@@ -4,41 +4,20 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField]
-    private static float _spawnWaitTime = 5.0f;
+    [SerializeField] private static float _spawnWaitTime = 5.0f;
     private WaitForSeconds _spawnTime = new WaitForSeconds(_spawnWaitTime);
     //private WaitForSeconds _spawnTime = new WaitForSeconds(5f);
-    [SerializeField]
-    private float _xWidth = 8f;
-    [SerializeField]
-    private float _ySpawnPoint = 7f;
+    [SerializeField] private float _xWidth = 8f;
+    [SerializeField] private float _ySpawnPoint = 7f;
     private IEnumerator _spawnEnemyRoutine;
-    [SerializeField]
-    private GameObject _enemyObject;
-    [SerializeField]
-    private GameObject _enemyContainer;
+    [SerializeField] private GameObject _enemyObject;
+    [SerializeField] private GameObject _enemyContainer;
     private bool _stopEnemySpawning = false;
     private bool _stopPowerupSpawning = false;
-    [SerializeField]
-    private GameObject _powerupContainer;
-    [SerializeField]
-    private GameObject _powerupObject;
-    [SerializeField]
-    private GameObject[] _powerupPrefabs;
+    [SerializeField] private GameObject _powerupContainer;
+    [SerializeField] private GameObject _powerupObject;
+    [SerializeField] private GameObject[] _powerupPrefabs;
     private IEnumerator _spawnPowerupRoutine;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void StartSpawning()
     {
