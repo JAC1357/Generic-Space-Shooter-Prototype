@@ -53,6 +53,9 @@ public class Powerup : MonoBehaviour
                     case PowerupTypes.Types.PowerupType.RapidFire:
                         player.RapidFirePickUp();
                         break;
+                    case PowerupTypes.Types.PowerupType.Thruster:
+                        player.ThrusterPickUp();
+                        break;
                     default:
                         Debug.Log("No power up given.");
                         break;

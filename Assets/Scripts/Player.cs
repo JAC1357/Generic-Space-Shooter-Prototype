@@ -34,6 +34,11 @@ public class Player : MonoBehaviour
     private GameObject _camera;
     private Coroutine _cameraShake;
     [SerializeField] private bool _hasRapidFire = false;
+    [SerializeField] private bool _hasThruster = false;
+    [SerializeField] private float _thrusterAmmount = 0;
+    [SerializeField] private int _ThrusterLimit = 100;
+    [SerializeField] private bool _leftShiftPressed = false;
+    private Coroutine _thrusterCoroutine;
 
     public int Lives
     {
@@ -65,18 +70,30 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("The _camera is empty.");
         }
-        
 
         foreach (GameObject damage in _playerDamage)
         {
             damage.SetActive(false);
         }
+
+        //_thrusterCoroutine = StartCoroutine(Thruster());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _thrusterAmmount > 0)
+        {
+            _leftShiftPressed = true;
+            StartCoroutine(Thruster());
+            _speed = 8;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            _leftShiftPressed = false;
+            StopCoroutine(Thruster());
+            _speed = 5;
+        }
         CalculateMovement();
 
         ShootLaser();
@@ -261,5 +278,30 @@ public class Player : MonoBehaviour
     {
         yield return _speedCoolDowRate;
         _hasRapidFire = false;
+    }
+
+    public void ThrusterPickUp()
+    {
+        _hasThruster = true;
+        _thrusterAmmount = _ThrusterLimit;
+        StartCoroutine(Thruster());
+    }
+
+    IEnumerator Thruster()
+    {
+        Debug.Log("thruster coroutine started");
+        while (_leftShiftPressed == true && _thrusterAmmount > 0)
+        {
+            Debug.Log("thruster coroutine while loop");
+            _thrusterAmmount--;
+            yield return new WaitForSeconds(1);
+            
+        }
+        if (_thrusterAmmount <= 0)
+        {
+            _speed = 5;
+            _hasThruster = false;
+        }
+
     }
 }

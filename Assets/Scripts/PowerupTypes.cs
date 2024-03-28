@@ -10,6 +10,7 @@ namespace PowerupTypes
             Ammo = 3,
             Health = 4,
             RapidFire = 5,
+            Thruster = 6,
         };
     }
 }
