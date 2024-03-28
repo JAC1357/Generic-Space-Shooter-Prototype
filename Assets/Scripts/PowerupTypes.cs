@@ -9,6 +9,7 @@ namespace PowerupTypes
             Shield = 2,
             Ammo = 3,
             Health = 4,
+            RapidFire = 5,
         };
     }
 }

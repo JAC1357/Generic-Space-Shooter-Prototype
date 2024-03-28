@@ -50,6 +50,9 @@ public class Powerup : MonoBehaviour
                     case PowerupTypes.Types.PowerupType.Health:
                         player.HealthPickUp(1);
                         break;
+                    case PowerupTypes.Types.PowerupType.RapidFire:
+                        player.RapidFirePickUp();
+                        break;
                     default:
                         Debug.Log("No power up given.");
                         break;

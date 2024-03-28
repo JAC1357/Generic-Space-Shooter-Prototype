@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _ammoCount = 5;
     private GameObject _camera;
     private Coroutine _cameraShake;
+    [SerializeField] private bool _hasRapidFire = false;
 
     public int Lives
     {
@@ -109,8 +110,16 @@ public class Player : MonoBehaviour
             if (_ammoCount > 0)
             {
                 _ammoCount--;
-                _canFire = Time.time + _fireRate;
-
+                if (_hasRapidFire == true)
+                {
+                    _canFire = -1;
+                    _ammoCount++;
+                }
+                else
+                {
+                    _canFire = Time.time + _fireRate;
+                }
+                
                 if (_tripleShotActive == true)
                 {
                     Instantiate(_tripleShotPrefab, this.transform.position, Quaternion.identity);
@@ -241,5 +250,16 @@ public class Player : MonoBehaviour
             _playerDamage[0].SetActive(false);
         }
         _uiManager.UpdateLives(_lives);
+    }
+
+    public void RapidFirePickUp()
+    {
+        _hasRapidFire = true;
+        StartCoroutine(RapidFire());
+    }
+    IEnumerator RapidFire()
+    {
+        yield return _speedCoolDowRate;
+        _hasRapidFire = false;
     }
 }
