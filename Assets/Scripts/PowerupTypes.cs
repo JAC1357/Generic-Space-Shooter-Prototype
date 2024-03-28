@@ -8,6 +8,7 @@ namespace PowerupTypes
             Speed = 1,
             Shield = 2,
             Ammo = 3,
+            Health = 4,
         };
     }
 }

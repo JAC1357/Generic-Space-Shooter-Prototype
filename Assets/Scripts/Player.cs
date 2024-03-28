@@ -218,4 +218,18 @@ public class Player : MonoBehaviour
         _ammoCount += ammoPickedup;
         _uiManager.UpdateAmmo(_ammoCount);
     }
+
+    public void HealthPickUp(int livesPickedUp)
+    {
+        _lives += livesPickedUp;
+        if (_playerDamage[1].activeSelf == true)
+        {
+            _playerDamage[1].SetActive(false);
+        }
+        else if (_playerDamage[0].activeSelf == true)
+        {
+            _playerDamage[0].SetActive(false);
+        }
+        _uiManager.UpdateLives(_lives);
+    }
 }

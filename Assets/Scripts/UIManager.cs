@@ -70,11 +70,6 @@ public class UIManager : MonoBehaviour
     {
         while (true)//playerLife <= 0)
         {
-            /*
-            _GameOverText.color = Color.white;
-            yield return _flickerTime;
-            _GameOverText.color = Color.black;
-            */
             _GameOverText.gameObject.SetActive(true);
             yield return _flickerTime;
             _GameOverText.gameObject.SetActive(false);
