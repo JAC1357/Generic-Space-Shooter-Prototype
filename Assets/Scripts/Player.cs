@@ -11,10 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float _fireRate = .5f;
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private int _lives = 3;
-    public int Lives
-    {
-        get { return _lives; }
-    }
     private SpawnManager _spawnManager;
     [SerializeField] private bool _tripleShotActive = false;
     [SerializeField] private GameObject _tripleShotPrefab;
@@ -31,6 +27,11 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _laserAudioSource;
     [SerializeField] private AudioSource _explosionSource;
     [SerializeField] private AudioSource _powerUpPickAudioSource;
+
+    public int Lives
+    {
+        get { return _lives; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +88,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void ShootLaser(GameObject laser, GameObject tripleShot)
+    void ShootLaser()
     {
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -95,12 +96,11 @@ public class Player : MonoBehaviour
 
             if (_tripleShotActive == true)
             {
-                Instantiate(tripleShot, this.transform.position, Quaternion.identity);
+                Instantiate(_tripleShotPrefab, this.transform.position, Quaternion.identity);
             }
             else
             {
-                Instantiate(laser, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
-                //Instantiate(laser, transform.position, Quaternion.identity);
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
             }
 
             _laserAudioSource.Play();
@@ -137,25 +137,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ItemPickup(GameObject gameObject)
-    {
-        switch (gameObject.tag) 
-        {
-            case "Powerup":
-                _tripleShotActive = true;
-                break;
-        }
-    
-    }
-
     public void TripleShotPickUp()
     {
         _powerUpPickAudioSource.Play();
         _tripleShotActive = true;
         Debug.Log("_tripleShotActive = true");
-        //Only Works once: collct powerup for true, timer runs out for false, collect powerupagain for true, time is supposed to run out but stays true
-        //StartCoroutine(_stopTripleShot);
-        //this works as expected
         StartCoroutine(TripleshotPowerDownRoutine());
     }
 

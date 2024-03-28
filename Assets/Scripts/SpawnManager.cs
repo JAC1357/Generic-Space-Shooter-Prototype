@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     //private WaitForSeconds _spawnTime = new WaitForSeconds(5f);
     [SerializeField] private float _xWidth = 8f;
     [SerializeField] private float _ySpawnPoint = 7f;
-    private IEnumerator _spawnEnemyRoutine;
+    private Coroutine _spawnEnemyRoutine;
     [SerializeField] private GameObject _enemyObject;
     [SerializeField] private GameObject _enemyContainer;
     private bool _stopEnemySpawning = false;
@@ -17,16 +17,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _powerupContainer;
     [SerializeField] private GameObject _powerupObject;
     [SerializeField] private GameObject[] _powerupPrefabs;
-    private IEnumerator _spawnPowerupRoutine;
+    private Coroutine _spawnPowerupRoutine;
 
     public void StartSpawning()
     {
-        _spawnEnemyRoutine = SpawnEnemyRoutine(_enemyObject);
-        StartCoroutine(_spawnEnemyRoutine);
-        //StopCoroutine(spawnRoutine);
+        _spawnEnemyRoutine = StartCoroutine(SpawnEnemyRoutine(_enemyObject));
 
-        _spawnPowerupRoutine = SpawnPowerUpRoutine(_powerupPrefabs);
-        StartCoroutine(_spawnPowerupRoutine);
+        _spawnPowerupRoutine = StartCoroutine(SpawnPowerUpRoutine(_powerupPrefabs));
     }
 
     IEnumerator SpawnEnemyRoutine(GameObject enemy)
