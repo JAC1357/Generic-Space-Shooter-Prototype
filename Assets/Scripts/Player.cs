@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _laserAudioSource;
     [SerializeField] private AudioSource _explosionSource;
     [SerializeField] private AudioSource _powerUpPickAudioSource;
+    [SerializeField] private int _shieldCount;
 
     public int Lives
     {
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour
 
         CalculateMovement();
 
-        ShootLaser(_laserPrefab, _tripleShotPrefab);
+        ShootLaser();
     }
 
     void CalculateMovement()
@@ -111,9 +112,25 @@ public class Player : MonoBehaviour
     {
         if (_hasShield == true)
         {
-            _hasShield = false;
-            _shieldvisualizer.SetActive(false);
-            return;
+            if (_shieldCount == 3)
+            {
+                _shieldvisualizer.GetComponent<SpriteRenderer>().color = Color.yellow;
+                _shieldCount -= 1;
+                return;
+            }
+            else if (_shieldCount == 2)
+            {
+                _shieldCount -= 1;
+                _shieldvisualizer.GetComponent<SpriteRenderer>().color = Color.gray;
+                return;
+            }
+            else if (_shieldCount == 1)
+            {
+                _shieldCount -= 1;
+                _hasShield = false;
+                _shieldvisualizer.SetActive(false);
+                return;
+            }   
         }
 
         _lives -= 1;
@@ -170,9 +187,11 @@ public class Player : MonoBehaviour
 
     public void ShieldPickUp()
     {
+        _shieldCount = 3;
         _powerUpPickAudioSource.Play();
         _hasShield = true;
         _shieldvisualizer.SetActive(true);
+        _shieldvisualizer.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void Score(int points)
