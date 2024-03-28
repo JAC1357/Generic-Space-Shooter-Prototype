@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _explosionSource;
     [SerializeField] private AudioSource _powerUpPickAudioSource;
     [SerializeField] private int _shieldCount;
+    [SerializeField] private int _ammoCount = 5;
 
     public int Lives
     {
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("The uiManger is empty.");
         }
+        _uiManager.UpdateAmmo(_ammoCount);
 
         foreach (GameObject damage in _playerDamage)
         {
@@ -91,20 +94,29 @@ public class Player : MonoBehaviour
 
     void ShootLaser()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _ammoCount > 0)
         {
-            _canFire = Time.time + _fireRate;
-
-            if (_tripleShotActive == true)
+            if (_ammoCount > 0)
             {
-                Instantiate(_tripleShotPrefab, this.transform.position, Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
-            }
+                _ammoCount--;
+                _canFire = Time.time + _fireRate;
 
-            _laserAudioSource.Play();
+                if (_tripleShotActive == true)
+                {
+                    Instantiate(_tripleShotPrefab, this.transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(_laserPrefab, transform.position + new Vector3(0, _laserOffset, 0), Quaternion.identity);
+                }
+                _laserAudioSource.Play();
+                _uiManager.UpdateAmmo(_ammoCount);
+                
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire && _ammoCount == 0)
+        {
+            _uiManager.UpdateAmmo(_ammoCount);
         }
     }
 
