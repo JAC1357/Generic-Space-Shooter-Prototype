@@ -251,26 +251,32 @@ public class Player : MonoBehaviour
 
     public void AmmoPickUp(int ammoPickedup)
     {
+        _powerUpPickAudioSource.Play();
         _ammoCount += ammoPickedup;
         _uiManager.UpdateAmmo(_ammoCount);
     }
 
     public void HealthPickUp(int livesPickedUp)
     {
-        _lives += livesPickedUp;
-        if (_playerDamage[1].activeSelf == true)
+        _powerUpPickAudioSource.Play();
+        if (_lives < 3)
         {
-            _playerDamage[1].SetActive(false);
+            _lives += livesPickedUp;
+            if (_playerDamage[1].activeSelf == true)
+            {
+                _playerDamage[1].SetActive(false);
+            }
+            else if (_playerDamage[0].activeSelf == true)
+            {
+                _playerDamage[0].SetActive(false);
+            }
+            _uiManager.UpdateLives(_lives);
         }
-        else if (_playerDamage[0].activeSelf == true)
-        {
-            _playerDamage[0].SetActive(false);
-        }
-        _uiManager.UpdateLives(_lives);
     }
 
     public void RapidFirePickUp()
     {
+        _powerUpPickAudioSource.Play();
         _hasRapidFire = true;
         StartCoroutine(RapidFire());
     }
@@ -282,6 +288,7 @@ public class Player : MonoBehaviour
 
     public void ThrusterPickUp()
     {
+        _powerUpPickAudioSource.Play();
         _hasThruster = true;
         _thrusterAmmount = _ThrusterLimit;
         _uiManager.ThrusterSliderUpdate(_thrusterAmmount);
