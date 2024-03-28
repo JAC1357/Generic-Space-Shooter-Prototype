@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -210,5 +211,11 @@ public class Player : MonoBehaviour
     {
         _score = _score + points;
         _uiManager.UpdateScore(_score);
+    }
+
+    public void AmmoPickUp(int ammoPickedup)
+    {
+        _ammoCount += ammoPickedup;
+        _uiManager.UpdateAmmo(_ammoCount);
     }
 }

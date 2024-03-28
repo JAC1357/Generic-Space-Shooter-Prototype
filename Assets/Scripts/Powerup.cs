@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Schema;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class Powerup : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class Powerup : MonoBehaviour
                         break;
                     case PowerupTypes.Types.PowerupType.Shield:
                         player.ShieldPickUp();
+                        break;
+                    case PowerupTypes.Types.PowerupType.Ammo:
+                        player.AmmoPickUp(7);
                         break;
                     default:
                         Debug.Log("No power up given.");

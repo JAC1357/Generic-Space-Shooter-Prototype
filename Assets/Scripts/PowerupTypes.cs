@@ -7,6 +7,7 @@ namespace PowerupTypes
             TripleShot = 0,
             Speed = 1,
             Shield = 2,
+            Ammo = 3,
         };
     }
 }
