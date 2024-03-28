@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource _powerUpPickAudioSource;
     [SerializeField] private int _shieldCount;
     [SerializeField] private int _ammoCount = 5;
+    private GameObject _camera;
+    private Coroutine _cameraShake;
 
     public int Lives
     {
@@ -56,6 +58,13 @@ public class Player : MonoBehaviour
             Debug.LogError("The uiManger is empty.");
         }
         _uiManager.UpdateAmmo(_ammoCount);
+
+        _camera = GameObject.Find("Main Camera");
+        if (_camera == null)
+        {
+            Debug.LogError("The _camera is empty.");
+        }
+        
 
         foreach (GameObject damage in _playerDamage)
         {
@@ -147,6 +156,7 @@ public class Player : MonoBehaviour
         }
 
         _lives -= 1;
+        _cameraShake = StartCoroutine(_camera.GetComponent<Camera>().Shake());
         _uiManager.UpdateLives(_lives);
 
         if (_lives == 2)
