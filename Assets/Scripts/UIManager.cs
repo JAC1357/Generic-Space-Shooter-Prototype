@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private WaitForSeconds _flickerTime = new WaitForSeconds(.5f);
     private IEnumerator _gameOverFlicker;
     [SerializeField] private Text _ammoCountText;
+    [SerializeField] private GameObject _thrusterSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -75,5 +76,10 @@ public class UIManager : MonoBehaviour
             _GameOverText.gameObject.SetActive(false);
             yield return _flickerTime;
         }
+    }
+
+    public void ThrusterSliderUpdate(float refill)
+    {
+        _thrusterSlider.GetComponent<Slider>().value = refill;
     }
 }

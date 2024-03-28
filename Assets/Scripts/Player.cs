@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _thrusterAmmount = 0;
     [SerializeField] private int _ThrusterLimit = 100;
     [SerializeField] private bool _leftShiftPressed = false;
-    private Coroutine _thrusterCoroutine;
+    
 
     public int Lives
     {
@@ -284,7 +284,7 @@ public class Player : MonoBehaviour
     {
         _hasThruster = true;
         _thrusterAmmount = _ThrusterLimit;
-        StartCoroutine(Thruster());
+        _uiManager.ThrusterSliderUpdate(_thrusterAmmount);
     }
 
     IEnumerator Thruster()
@@ -294,6 +294,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("thruster coroutine while loop");
             _thrusterAmmount--;
+            _uiManager.ThrusterSliderUpdate(_thrusterAmmount);
             yield return new WaitForSeconds(1);
             
         }
